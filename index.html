@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breadido - Key System</title>
+    <!-- Cloudflare Turnstile API Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        body {
+            background-color: #121216;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #1c1c24;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            width: 350px;
+            text-align: center;
+        }
+        h2 { margin-bottom: 10px; font-size: 22px; color: #00a2ff; }
+        p { color: #a0a0b0; font-size: 14px; margin-bottom: 20px; }
+        .key-box {
+            background-color: #262630;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 16px;
+            color: #55ff7f;
+            margin-top: 15px;
+            display: none;
+            word-break: break-all;
+        }
+        .cf-turnstile {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Secure Key System</h2>
+    <p>Complete the security check below to unlock your 24-hour key.</p>
+    
+    <!-- Cloudflare Turnstile Bot Protection (Stops Bypassers) -->
+    <div class="cf-turnstile" data-sitekey="YOUR_CLOUDFLARE_SITE_KEY" data-callback="onSuccess"></div>
+
+    <div id="keyDisplay" class="key-box">test</div>
+</div>
+
+<script>
+    function onSuccess(token) {
+        // Once the human verification is solved, reveal the key securely
+        document.querySelector('.cf-turnstile').style.display = 'none';
+        document.querySelector('p').innerText = 'Verification successful! Here is your key:';
+        
+        let keyBox = document.getElementById('keyDisplay');
+        keyBox.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
